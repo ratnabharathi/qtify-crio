@@ -6,6 +6,16 @@
         align-items: center;
         height: 270px;
         gap: 30px;
-        justify-content: baseline;
         /* border: 1px solid red; */
+    }
+    
+    .textContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    .imageContainer {
+        display: flex;
+        align-items: center;
     }
