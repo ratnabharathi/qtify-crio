@@ -1,25 +1,19 @@
 import React from "react";
-import styles from "./Hero.module.css"; // Using CSS modules for better styling management
-import headphoneImage from "../../assets/hero-image.png";
+import styles from "./Hero.module.css";
 
-const Hero = () => {
-    return ( <
-        div className = { styles.hero } >
+function Hero() {
+    return ( < div className = { styles.hero } >
         <
-        div className = { styles.textContainer } >
+        div >
         <
-        h3 > 100 Thousand Songs, ad - free < /h3> <
-        h3 > Over thousands of podcast episodes < /h3> <
-        /div> <
-        div className = { styles.imageContainer } >
-        <
-        img src = { headphoneImage }
+        h1 > 100 Thousand Songs, ad - free < /h1>  <
+        h1 > Over thousands podcast episodes < /h1>   <
+        /div> <div> <
+        img src = { require("../../assets/hero-image.png") }
         width = { 212 }
-        alt = "Headphones" / >
+        alt = "headphones" / >
         <
-        /div> <
-        /div>
+        /div> </div >
     );
-};
-
+}
 export default Hero;
