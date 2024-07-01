@@ -1,21 +1,9 @@
-    .hero {
-        background-color: var(--color-black);
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 270px;
-        gap: 30px;
-        /* border: 1px solid red; */
-    }
-    
-    .textContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-    
-    .imageContainer {
-        display: flex;
-        align-items: center;
-    }
+.hero {
+    background-color: var(--color-black);
+    height: 270px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 30px;
+}
