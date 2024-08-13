@@ -21,3 +21,12 @@ body {
     line-height: 1.5;
     overflow-x: hidden;
 }
+
+img,
+picture,
+video,
+canvas,
+svg {
+    display: block;
+    max-width: 100%;
+}
