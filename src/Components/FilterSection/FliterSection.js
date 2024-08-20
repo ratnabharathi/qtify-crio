@@ -1,56 +1,74 @@
-// import React, { useState } from 'react'
-import styles from './FilterSection.module.css'
-import { Box, CircularProgress } from '@mui/material'
-import Card from "../Card/Card";
-// import CustomTabPanel from '../BasicTabs/BasicTabs'
-import Carousel from "../Carousel/Carousel";
-import BasicTabs from '../BasicTabs/BasicTabs';
+import React, { useState } from "react";
+import Tabs from "@mui/material/Tabs";
+import Tab from "@mui/material/Tab";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
+import styles from "./FilterSection.module.css";
 
+function TabPanel(props) {
+    const { children, value, index, ...other } = props;
 
+    return ( <
+        div role = "tabpanel"
+        hidden = { value !== index }
+        id = { `simple-tabpanel-${index}` }
+        aria - labelledby = { `simple-tab-${index}` } {...other } >
+        {
+            value === index && ( <
+                Box sx = {
+                    { p: 3 } } >
+                <
+                Typography > { children } < /Typography> <
+                /Box>
+            )
+        } <
+        /div>
+    );
+}
 
-const FilterSection = ({
-        title,
-        data,
-        type,
-        filteredData,
-        filteredDataValues,
-        value,
-        handleChange,
-    }) => {
+function FilterSection({ filters, selectedFilterIndex, setSelectedFilterIndex }) {
+    const [value, setValue] = useState(0);
 
-        return ( <
-            div >
-            <
-            div className = { styles.header } >
-            <
-            h3 > { title } < /h3> <
-            /div> <
-            BasicTabs value = { value }
-            handleChange = { handleChange }
-            filteredData = { filteredData }
-            /> {
-                data.length === 0 ? ( <
-                        Box sx = {
-                            { display: 'flex', justifyContent: 'center', alignItems: 'center' } } >
-                        <
-                        CircularProgress / >
-                        <
-                        /Box>
-                    ) :
-                    ( <
-                        div className = { styles.cardsWrapper } >
-                        <
-                        Carousel data = { filteredDataValues }
-                        renderCardComponent = {
-                            (data) => < Card data = { data }
-                            type = { type }
-                            />} / >
-                            <
-                            /div>
-                        )
-                    } <
-                    /div>
-            );
+    const handleChange = (event, newValue) => {
+        setSelectedFilterIndex(newValue);
+    };
+
+    function a11yProps(index) {
+        return {
+            id: `simple-tab-${index}`,
+            "aria-controls": `simple-tabpanel-${index}`,
         };
+    }
 
-        export default FilterSection;
+    return ( <
+        div >
+        <
+        Tabs value = { selectedFilterIndex }
+        onChange = { handleChange }
+        aria - label = "basic tabs example"
+        TabIndicatorProps = {
+            {
+                style: {
+                    backgroundColor: "var(--color-primary)",
+                },
+            }
+        } >
+        {
+            filters.map((ele, idx) => ( <
+                Tab className = { styles.tab }
+                label = { ele.label } {...a11yProps(idx) }
+                />
+            ))
+        } <
+        /Tabs> {
+            filters.map((ele, idx) => ( <
+                TabPanel value = { ele.label }
+                index = { idx }
+                />
+            ))
+        } <
+        /div>
+    );
+};
+
+export default FilterSection;
