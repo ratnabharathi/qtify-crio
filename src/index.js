@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import HomePage from "./Components/Homepage/Homepage";
+import { HomePage } from "./Components/Homepage/Homepage";
 
 const router = createBrowserRouter([{
     path: "/",
-    element: < App / > , // Correct JSX formatting
+    element: < App / > ,
     children: [{
         path: "/",
-        element: < HomePage / > , // Correct JSX formatting
+        element: < HomePage / > ,
     }, ],
 }, ]);
 
