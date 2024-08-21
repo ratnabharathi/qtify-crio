@@ -1,57 +1,41 @@
-import React, { useEffect, useState } from 'react';
-import Navbar from './Components/Navbar/Navbar.jsx';
-import Hero from './Components/Hero/Hero.jsx';
-import styles from './App.module.css';
-import { fetchTopAlbums, fetchNewAlbums } from './api/api';
-import Section from './Components/Section/Section.jsx';
+import React, { useEffect, useState } from "react";
+import Navbar from "./Components/Navbar/Navbar";
+import Hero from "./Components/Hero/Hero";
+import { StyledEngineProvider } from "@mui/material";
+import { Outlet } from "react-router-dom";
+import { fetchNewAlbums, fetchSongs, fetchTopAlbums } from "./api/api";
 
 function App() {
-    const [topAlbumSongs, setTopAlbumSongs] = useState([]);
-    const [newAlbumSongs, setNewAlbumSongs] = useState([]);
+    const [searchData, useSearchData] = useState();
+    const [data, setData] = useState({});
 
-    const generateTopAlbumSongs = async() => {
-        try {
-            const topAlbumSongs = await fetchTopAlbums();
-            setTopAlbumSongs(topAlbumSongs);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    const generateNewAlbumSongs = async() => {
-        try {
-            const newAlbumSongs = await fetchNewAlbums();
-            setNewAlbumSongs(newAlbumSongs);
-        } catch (error) {
-            console.log(error);
-        }
+    const generateData = (key, source) => {
+        source().then((data) => {
+            setData((prevData) => {
+                return {...prevData, [key]: data };
+            });
+        });
     };
 
     useEffect(() => {
-        generateTopAlbumSongs();
-        generateNewAlbumSongs();
+        generateData("topAlbums", fetchTopAlbums);
+        generateData("newAlbums", fetchNewAlbums);
+        generateData("songs", fetchSongs);
     }, []);
-
-    return ( <
-        >
+    const { topAlbums = [], newAlbums = [], songs = [] } = data;
+    return ( < >
         <
-        Navbar / >
+        StyledEngineProvider injectFirst >
         <
-        Hero / >
-        <
-        div className = { styles.sectionWrapper } >
-        <
-        Section type = 'album'
-        title = 'Top Albums'
-        data = { topAlbumSongs }
-        /> <
-        Section type = 'album'
-        title = 'New Albums'
-        data = { newAlbumSongs }
-        /> <
-        /div> <
-        />
-    );
+        Navbar searchData = {
+            [...topAlbums, ...newAlbums]
+        }
+        /> {  <Hero / >
+    } < Outlet context = {
+        { data: { topAlbums, newAlbums, songs } }
+    }
+    /> </StyledEngineProvider > < />
+);
 }
 
 export default App;
