@@ -7,7 +7,8 @@ export const fetchTopAlbums = async() => {
         const response = await axios.get(`${BACKEND_ENDPOINT}/albums/top`);
         return response.data;
     } catch (e) {
-        console.error(e);
+        console.error('Error fetching top albums:', e);
+        return []; // Return an empty array to handle errors gracefully
     }
 };
 
@@ -16,7 +17,8 @@ export const fetchNewAlbums = async() => {
         const response = await axios.get(`${BACKEND_ENDPOINT}/albums/new`);
         return response.data;
     } catch (e) {
-        console.error(e);
+        console.error('Error fetching new albums:', e);
+        return []; // Return an empty array to handle errors gracefully
     }
 };
 
@@ -25,7 +27,8 @@ export const fetchSongs = async() => {
         const response = await axios.get(`${BACKEND_ENDPOINT}/songs`);
         return response.data;
     } catch (e) {
-        console.error(e);
+        console.error('Error fetching songs:', e);
+        return []; // Return an empty array to handle errors gracefully
     }
 };
 
@@ -34,6 +37,7 @@ export const fetchFilters = async() => {
         const response = await axios.get(`${BACKEND_ENDPOINT}/genres`);
         return response.data;
     } catch (e) {
-        console.error(e);
+        console.error('Error fetching filters:', e);
+        return []; // Return an empty array to handle errors gracefully
     }
 };
